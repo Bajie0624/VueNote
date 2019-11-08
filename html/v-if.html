@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="/Users/zhangxuwei/Desktop/CODE/lib/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <input type="button" @click="flag=!flag">
+        <h1 v-if="flag">这是用v-if控制的元素</h1>
+        <h1 v-else>这是测试v-else</h1>
+        <!-- v-show 不会重新进行DOM的删除和创建操作，知识切换了元素的display：none样式-->
+        <h2 v-show="flag">这是用v-show控制的元素</h2>
+
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                flag:true,
+            },
+            methods: {
+
+            }
+        });
+    </script>
+</body>
+
+</html>
