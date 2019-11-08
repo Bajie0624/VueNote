@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="/Users/zhangxuwei/Desktop/CODE/lib/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h4>{{mes}}</h4>
+        <input type="button" value="浪起来" v-on:click="lang">
+        <input type="button" value="别浪" v-on:click="stop">
+    </div>
+    <script>
+        var vm = new Vue({
+            el:'#app',
+            data:{
+                mes:'猥琐发育，别浪！',
+                intervalId:null,//在data上定义
+
+            },
+            methods: {
+                lang(){
+
+                    if(this.intervalId!= null) 
+                        return;
+                    this.intervalId =  setInterval( () =>  {
+                        console.log(this.mes)
+                        var start = this.mes.substring(0,1)
+                        var end = this.mes.substring(1)
+                        //重新拼接到新的字符串
+                        this.mes = end + start
+                    },400)
+                },
+                stop(){
+                    clearInterval(this.intervalId)
+                    //每次清除之后需要重新将
+                    this.intervalId = null
+
+                }
+            }
+        })
+    </script>
+</body>
+</html>

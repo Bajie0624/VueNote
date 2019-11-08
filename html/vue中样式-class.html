@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="/Users/zhangxuwei/Desktop/CODE/lib/vue.js"></script>
+    <style>
+        .red{
+            color: red;
+        }
+        .thin{
+            font-weight: 200;
+        }
+
+        .italic{
+            font-style: italic;
+        }
+        .active{
+            letter-spacing: 0.5em;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!--使用一个数组，class需要用v-bind绑定-->
+        <h1 :class="['thin','italic']">中国人民终于站起来了！</h1>
+
+        <!-- 
+            <h2 :class="['red','italic',flag?'active':'']">vue真的好有趣</h2>
+           --> 
+
+        <!--使用数组代替三元表达式-->
+        <h2 :class="['red','italic',{'active':flag}]">vue真的好有趣</h2>  
+        
+        <h3 :class="{red:true , thin:true, active:true}">we can be better!</h3>
+
+
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                flag:true
+            },
+            methods: {}
+        });
+    </script>
+</body>
+
+</html>

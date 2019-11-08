@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>TEST</title>
+    <script src="/Users/zhangxuwei/Desktop/CODE/lib/vue.js"></script>
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="app">
+        <!--使用v-cloak能够解决插值表达式闪烁问题，只会替换自己的占位符-->
+        <p v-cloak>{{ mes }}</p>
+        <!--默认v-text是没有插值表达式的闪烁问题，会覆盖元素中原本的内容-->
+        <h4 v-text="mes"></h4>
+
+        <div>{{mes2}}</div>
+        <div v-text="mes2"></div>
+        <div v-html="mes2"></div>
+        <!--v-bind可以被简写成一个英文的 : --><!--v-on可以绑定一些事件，缩写是@  -->
+        <input type="button" value="按钮" v-bind:title="mytittle" id="btn" v-on:click="show">
+
+
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el:'#app',
+            data:{
+             mes:'123',
+             mes2:'<h1>你好</h1>',
+             mytittle:'这是一个自己定义的tittle',
+            },
+            methods:{//定义show
+            show:  function(){
+                alert('helloWorld')
+            }
+            
+        }
+        })
+    
+
+
+       /* document.getElementById('btn').onclick = function(){
+            alert('我心情好不爽！')
+        }
+        */
+
+    </script>
+</body>
+</html>

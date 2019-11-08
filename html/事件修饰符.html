@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="/Users/zhangxuwei/Desktop/CODE/lib/vue.js"></script>
+    <style>
+        .inner{
+            height: 150px;
+            background-attachment: darkcyan;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="inner" @click="div1Handler">
+            <input type="button" value="点击" @click.stop="btnHandler">
+        </div>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app', //指定vm控制的元素
+            data: {},
+            methods: {
+                div1Handler(){
+                    console.log('这是出发了 inner div 的点击事件')
+                },
+                btnHandler(){
+                    console.log('这时触发了 btn 按钮的点击事件')
+                }
+            }
+            
+        });
+    </script>
+</body>
+
+</html>
