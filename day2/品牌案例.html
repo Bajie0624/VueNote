@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="/Users/zhangxuwei/Desktop/CODE/lib/vue.js"></script>
+    <link rel="stylesheet" href="/Users/zhangxuwei/Desktop/CODE/lib/bootstrap-3.3.7.css">
+</head>
+
+<body>
+    <div id="app">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">添加品牌</h3>
+            </div>
+            <div class="panel-body form-inline">
+                <label>
+                    Id:
+                    <input type="text" class="form-control" v-model="Id">
+                </label>
+                <label>
+                    Name:
+                    <input type="text" class="form-control" v-model="Name">
+                </label>
+                <!--在view中使用事件绑定机制，如果使用小括号（），就可以给函数传参-->
+                <input type="button" value="添加" class="btn btn-primary" @click="add()">
+                <label>
+                    搜索名称或关键字：
+                    <input type="text" class="form-control" v-model="keyInput">
+                </label>
+            </div>
+        </div>
+
+        <table class="table table-bordered table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Ctime</th>
+                    <th>Operation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="item in search(keyInput)" :key="item.Id">
+                    <td>{{ item.Id }}</td>
+                    <td v-text="item.Name"></td>
+                    <td>{{ item.Ctime | dataFormat('YYYY-MM-DD')}}</td>
+                    <td>
+                        <a href="" @click.prevent="del(item.Id)"> 删除</a>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+
+    <script>
+
+        //全局过滤器，进行时间的格式化
+        Vue.filter('dataFormat',function(dataStr,pattern){
+            var dt = new Date();//根据给定的时间字符串，得到特定的时间
+            var y = dt.getFullYear();
+            var m = dt.getMonth()+1;
+            var d = dt.getDate();
+            //return y + '-' + m + '-' + d
+            
+            if(pattern.toLowerCase()==='yyyy-mm-dd'){
+                return `${y}-${m}-${d}`
+            }else{
+                var hh = dt.getHours();
+                var mm = dt.getMinutes();
+                var ss = dt.getSeconds();
+                return `${y}-${m}-${d}  ${hh}:${mm}:${ss}`
+            }
+
+        })
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                Id:'',
+                Name:'',
+                keyInput:'',
+                list:[
+                    {Id:1, Name:'宝马',Ctime:new Date()},
+                    {Id:2, Name:'奔驰',Ctime:new Date()},
+                ]
+            },
+            methods: { 
+                add(){
+                    var car = {Id:this.Id,  Name:this.Name, Ctime:new Date()}
+                    this.list.push(car)
+                    this.Id=''
+                    this.Name=''
+                },
+                del(id){
+                    // this.list.some((item,i)=>{
+                    //     if(item.Id==id){
+                    //         this.list.splice(i,1)
+                    //         return true
+                    //     }
+                    // })
+                   var index = this.list.findIndex(item => {
+                        if(item.Id==id){
+                            return true;
+                        }
+                    })
+                    this.list.splice(index,1)
+                },
+                search(keyInput){//根据关键字进行数据的搜索
+                //    var newList = []
+                //     this.list.forEach(item => {
+                //         if(item.indexOf(keyInput) != -1){
+                //             newList.push(item)
+                //         }
+                //      }
+                //     )
+
+                   return this.list.filter(item =>{
+                        if(item.Name.includes(keyInput)){
+                            return item
+                        }
+                    })
+
+                }
+
+            }
+        });
+    </script>
+</body>
+
+</html>
