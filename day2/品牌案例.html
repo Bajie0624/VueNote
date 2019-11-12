@@ -23,13 +23,13 @@
                 </label>
                 <label>
                     Name:
-                    <input type="text" class="form-control" v-model="Name">
+                    <input type="text" class="form-control" v-model="Name" @keyup.enter="add()">
                 </label>
                 <!--在view中使用事件绑定机制，如果使用小括号（），就可以给函数传参-->
                 <input type="button" value="添加" class="btn btn-primary" @click="add()">
                 <label>
                     搜索名称或关键字：
-                    <input type="text" class="form-control" v-model="keyInput">
+                    <input type="text" class="form-control" v-model="keyInput" v-focus v-color="'blue'">
                 </label>
             </div>
         </div>
@@ -59,9 +59,37 @@
 
     <script>
 
+        //定义指令不需要加v-，调用需要加上
+        Vue.directive('focus',{
+            bind:function(el){
+                //每当指令绑定到元素上的时候，会立即执行此函数，只执行一次
+                //在每个函数中，第一个参数永远是el，表示被绑定的那个元素，这个el参数，是个原生的js对象
+                //在元素刚绑定了指令的时候，还未插入到DOM中去，这时候调用
+                //focus方法没有作用，因为一个元素只有插入到DOM中去才能获取焦点
+
+            },
+            inserted:function(el){
+                //插入到DOM中的时候，会执行inserted函数，只执行一次
+                //和js行为相关的操作，在 inserted中去执行
+                el.focus()
+            },
+            updated:function(el){
+                //当vnode更新的时候，会执行updated，可能会触发多次，
+            },
+        });
+        Vue.directive('color',{
+            //样式只要通过指令绑定给了元素，不管这个元素有没有被插入到页面中去，这个元素肯定有了一个内联的样式
+            //将来元素肯定会显示到页面中，这时候，浏览器的渲染引擎必然会解析样式，应用给这个元素 
+            bind:function(el,binding){
+                el.style.color = binding.value
+                
+            },
+
+        })
+
         //全局过滤器，进行时间的格式化
         Vue.filter('dataFormat',function(dataStr,pattern){
-            var dt = new Date();//根据给定的时间字符串，得到特定的时间
+            var dt = new Date(dataStr);//根据给定的时间字符串，得到特定的时间
             var y = dt.getFullYear();
             var m = dt.getMonth()+1;
             var d = dt.getDate();
