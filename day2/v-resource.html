@@ -32,7 +32,8 @@
                     //手动发起的 post 请求默认没有表单格式，有的服务器无法处理
                     //通过 post 方法的第三个参数设置提交内容为普通表单格式
                     //第一个是url，第二个是要提交给服务器的数据
-                    this.$http.post('http://vue.studyit.io/api/post',{},{ emulateJSON:true}).then(result=>{
+                    this.$http.post('http://vue.studyit.io/api/post',{},{ 
+                        emulateJSON:true}).then(result=>{
                         console.log(result.body)
                     })
                 },
