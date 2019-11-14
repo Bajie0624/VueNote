@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="/Users/zhangxuwei/Desktop/CODE/lib/vue.js"></script>
+    <script src="/Users/zhangxuwei/Desktop/CODE/lib/vue-resource-1.3.4.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <input type="button" value="get请求" @click="getInfo">
+        <input type="button" value="post请求" @click="postInfo">
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {},
+            methods: {
+                getInfo(){
+                    //成功发起请求之后，通过then执行回调函数
+                    this.$http.get('http://vue.studyit.io/api/getlunbo').then(function(result){
+                        console.log(result)
+                    })
+                },
+                postInfo(){
+                    //手动发起的 post 请求默认没有表单格式，有的服务器无法处理
+                    //通过 post 方法的第三个参数设置提交内容为普通表单格式
+                    this.$http.post('http://vue.studyit.io/api/post',{},{ emulateJSON:true}).then(result=>{
+                        console.log(result.body)
+                    })
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
