@@ -14,7 +14,7 @@
         <input type="button" @click="flag=!flag">
         <h1 v-if="flag">这是用v-if控制的元素</h1>
         <h1 v-else>这是测试v-else</h1>
-        <!-- v-show 不会重新进行DOM的删除和创建操作，知识切换了元素的display：none样式-->
+        <!-- v-show 不会重新进行DOM的删除和创建操作，只是、切换了元素的display：none样式-->
         <h2 v-show="flag">这是用v-show控制的元素</h2>
 
     </div>

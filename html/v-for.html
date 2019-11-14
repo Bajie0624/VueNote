@@ -23,7 +23,12 @@
         <p v-for="item in list">{{item.name}}</p>
         <!--这里count的数字是从1开始-->
         <p v-for="count in 10">这是第 {{count}} 几次循环</p>
-        <p v-for="it in list2"><input type="checkbox">{{it.name}}</p>
+        <!--
+            当用v-for循环的时候，key属性只能用number获取string,在使用的时候只能用v-bind属性绑定的形式，指定key的值
+        -->
+
+
+        <p v-for="it in list2" :key="item"><input type="checkbox">{{it.name}}</p>
     </div>
 
     <script>
