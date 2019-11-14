@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="/Users/zhangxuwei/Desktop/CODE/lib/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <input type="button" value="修改msg" @click="msg='No'">
+        <h3 id="h3">{{ msg }}</h3>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg:'ok'
+            },
+            methods: {
+                show(){
+                    console.log('执行了show方法')
+                }
+            },
+            //在beforeCreate生命周期函数执行的时候，data和methods中的数据都还没有被初始化
+            beforeCreate(){
+               // this.show()
+            },
+            created(){
+                console.log(this.msg)
+                this.show()
+            },
+            mounted() { // 这是遇到的第4个生命周期函数，表示内存中的模板，已经真实的挂载到了页面中，用户已经可以看到渲染好的页面了
+            },
+            beforeUpdate(){
+                //界面中显示的数据未改变，但是实际的数据被更新
+
+            },
+            updated(){
+                //界面中显示的数据改变，实际的数据也被更新
+                console.log('界面上元素的内容：'+ document.getElementById('h3').innerText)
+                console.log('data 中的 msg 的数据是' + this.msg)
+            }
+        });
+    </script>
+</body>
+
+</html>
