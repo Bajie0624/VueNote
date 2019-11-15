@@ -42,7 +42,7 @@
                     <td>{{ item.name }}</td>
                     <td>{{ item.ctime}} </item></td>
                     <td>
-                        <input type="button" value="删除">
+                        <a herf="" @click.prevent="del(item.id)">删除</a>
                     </td>
 
                 </tr>
@@ -52,11 +52,15 @@
     </div>
 
     <script>
+        //配置了全局请求数据接口的根域名
+        Vue.http.options.root = 'http://www.liulongbin.top:3005';
+        //全局启用 emulateJSON 
+        Vue.http.options.emulateJSON = true;
         var vm = new Vue({
             el: '#app',
             data: {
                 name:'',
-                list:[
+                list:[ //存放所有品牌的数组
                     {id:1,name:'五菱宏光',ctime:new Date()},
                     {id:2,name:'众泰',ctime:new Date()}
                 ]
@@ -66,11 +70,24 @@
             },
             methods: {
                 add(){//添加品牌列表到后台服务器
-                    
+                    //发送 post 请求，接收三个参数。请求的 url 地址、提交到服务器的数据（要以对象形式提交{name:this.name}）
+                    //第三个参数是一个配置对象，对要以哪种表单类型提交多去{emulateJSON: true}以普通表单格式将数据提交给服务器
+                    // application/x-www-form-urlencoded
+                    //在 psot 方法中，使用 .then 来设置成功的回调函数，如果拿到成功的结果，需要 result.body
+
+                    this.$http.post('api/addproduct',{name:this.name},{emulateJSON:true}).then(result=>{
+                        if(result.body.status==0){
+                            //成功
+                            this.getAllList()
+                        }else{
+                            alert('添加失败')
+                        }
+                    })
+
                 },
                 getAllList(){//获取所有车品牌的列表
                     
-                    this.$http.get('http://www.liulongbin.top:3005/api/getprodlist').then(result=>{
+                    this.$http.get('api/getprodlist').then(result=>{
                         //通过 $http 获取到的数据，都是在 result.body
                          var result = result.body;
                         if(result.status == 0){//获取成功
@@ -80,7 +97,19 @@
                         }
                     })
 
+                },
+                del(id){//删除品牌
+                    this.$http.get("api/delproduct/" + id).then(result=>{
+                        if(result.body.status==0){
+                            //删除成功
+                            this.getAllList()
+                        }else{
+                            alert('删除失败')
+                        }
+                    })
                 }
+
+            
             }
         });
     </script>
