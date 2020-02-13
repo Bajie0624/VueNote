@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="/Users/zhangxuwei/Desktop/CODE/lib/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div class="aa" display:none>
+            <p>{{daa}}</p>
+        </div>
+    </div>
+
+    <script>
+        var store = new Vue.store({
+            state:{
+                count:0
+            },
+            mutations:{
+                
+            }
+        }),
+        var vm = new Vue({
+            el: '#app',
+            
+            data: {
+                daa:'china best',
+            },
+            methods: {}
+        });
+    </script>
+</body>
+
+</html>
